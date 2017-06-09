@@ -2,3 +2,43 @@
 //Smallest Common Multiple
 //=====================================================
 
+function isDivisibleBy(val, num1, num2){
+  var max = Math.max(num1,num2);
+  var min = Math.min(num1,num2);
+  
+  while(min <= max){
+    //If not divisible by min (not 0)
+    if(val%min !== 0){
+      return false;
+    }
+    min++;
+  }
+  return true;
+}
+
+function smallestCommons(arr) {
+  var max = arr.reduce(function(a, b) {
+    return Math.max(a, b);
+  });
+  var min = arr.reduce(function(a, b) {
+    return Math.min(a, b);
+  });
+  var found = false;
+  var maxArray = [];
+  var tempMin = min;
+  var tempMax = max;
+  
+  while(!found){
+    //console.log(tempMin);
+    maxArray.push(tempMax);
+    if(maxArray.includes(tempMin) && isDivisibleBy(tempMin,min,max)){
+      found = true;
+    }else{
+      tempMin += min;
+      tempMax += max;
+    }
+  }
+  return tempMin;
+}
+
+smallestCommons([1, 13]);
