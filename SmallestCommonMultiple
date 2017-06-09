@@ -2,18 +2,22 @@
 //Smallest Common Multiple
 //=====================================================
 
+//WARNING!!!!!!!!!!!!!!!!!!!!!!
+//Your browser may feel froze for a few minutes if excuted by the script is working (Check console log)
+//noprotect
 function isDivisibleBy(val, num1, num2){
   var max = Math.max(num1,num2);
   var min = Math.min(num1,num2);
-  
+  var result;
   while(min <= max){
     //If not divisible by min (not 0)
     if(val%min !== 0){
       return false;
     }
     min++;
+    result = true;
   }
-  return true;
+  return result;
 }
 
 function smallestCommons(arr) {
@@ -23,22 +27,28 @@ function smallestCommons(arr) {
   var min = arr.reduce(function(a, b) {
     return Math.min(a, b);
   });
+  console.log("Min: "+min);
+  console.log("Max: "+max);
+  
   var found = false;
   var maxArray = [];
   var tempMin = min;
   var tempMax = max;
-  
+  var SCM;
+  console.log("Testing Min: "+min+" Max: "+max);
   while(!found){
-    //console.log(tempMin);
+    console.log("Running");
     maxArray.push(tempMax);
     if(maxArray.includes(tempMin) && isDivisibleBy(tempMin,min,max)){
       found = true;
+      SCM = tempMin;
     }else{
       tempMin += min;
       tempMax += max;
     }
   }
-  return tempMin;
+  console.log("SCM ="+SCM);
+  console.log("------------------");
+  return SCM;
 }
-
-smallestCommons([1, 13]);
+//smallestCommons([1, 5]);
